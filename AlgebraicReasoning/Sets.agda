@@ -10,8 +10,14 @@ import Relation.Binary.PreorderReasoning as PreR
 
 module ⊆-reasoning {ℓ A} = PreR (⊆-Preorder {ℓ} A)
   renaming (begin_ to ⊆-begin_; _∼⟨_⟩_ to _⊆⟨_⟩_; _∎ to _⊆∎)
-open ⊆-reasoning public  hiding (_IsRelatedTo_; _≈⟨_⟩_; _≈⟨⟩_)
+open ⊆-reasoning public  hiding (_IsRelatedTo_; _≈⟨_⟩_; _≈⟨⟩_
+  ; _≡⟨_⟩_; _≡⟨⟩_ ; _≈˘⟨_⟩_; _≡˘⟨_⟩_
+  ; IsEquality; IsEquality?; begin-equality_; extractEquality ; levelOf; relOf
+  )
 
 module ⊇-reasoning {ℓ A} = PreR (⊇-Preorder {ℓ} A)
   renaming (begin_ to ⊇-begin_; _∼⟨_⟩_ to _⊇⟨_⟩_; _∎ to _⊇∎)
-open ⊇-reasoning public  hiding (_IsRelatedTo_; _≈⟨_⟩_; _≈⟨⟩_)
+open ⊇-reasoning public  hiding (_IsRelatedTo_; _≈⟨_⟩_; _≈⟨⟩_
+  ; _≡⟨_⟩_; _≡⟨⟩_ ; _≈˘⟨_⟩_; _≡˘⟨_⟩_
+  ; IsEquality; IsEquality?; begin-equality_; extractEquality ; levelOf; relOf
+  )

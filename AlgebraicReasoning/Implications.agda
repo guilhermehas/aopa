@@ -105,12 +105,20 @@ A ⇔ B = A ⇒ B × A ⇐ B
 
 module ⇒-reasoning {i} = PreR (⇒-Preorder {i})
   renaming (begin_ to ⇒-begin_ ; _∼⟨_⟩_ to _⇒⟨_⟩_ ; _∎ to _⇒∎)
-open ⇒-reasoning public hiding (_IsRelatedTo_; _≈⟨_⟩_; _≈⟨⟩_)
+open ⇒-reasoning public hiding (_IsRelatedTo_; _≈⟨_⟩_; _≈⟨⟩_
+  ; _≡⟨_⟩_; _≡⟨⟩_ ; _≈˘⟨_⟩_; _≡˘⟨_⟩_
+  ; IsEquality; IsEquality?; begin-equality_; extractEquality ; levelOf; relOf
+  )
 
 module ⇐-reasoning {i} = PreR (⇐-Preorder {i})
   renaming (begin_ to ⇐-begin_ ; _∼⟨_⟩_ to _⇐⟨_⟩_ ; _∎ to _⇐∎)
-open ⇐-reasoning public hiding (_IsRelatedTo_; _≈⟨_⟩_; _≈⟨⟩_)
+open ⇐-reasoning public hiding (_IsRelatedTo_; _≈⟨_⟩_; _≈⟨⟩_
+  ; _≡⟨_⟩_; _≡⟨⟩_ ; _≈˘⟨_⟩_; _≡˘⟨_⟩_
+  ; IsEquality; IsEquality?; begin-equality_; extractEquality ; levelOf; relOf
+  )
 
 module ⇔-reasoning {i} = EqR (⇔-Setoid {i})
   renaming (begin_ to ⇔-begin_ ; _≈⟨_⟩_ to _⇔⟨_⟩_ ; _∎ to _⇔∎)
-open ⇔-reasoning public hiding (_IsRelatedTo_ ; _≡⟨_⟩_; _≡⟨⟩_)
+open ⇔-reasoning public hiding (_IsRelatedTo_ ; _≡⟨_⟩_; _≡⟨⟩_
+  ; _≈˘⟨_⟩_; _≡˘⟨_⟩_
+  )
