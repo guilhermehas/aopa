@@ -53,17 +53,17 @@ liftC : ∀ {i j k} {A : Set i} {B : Set j} {C : Set k}
 liftC R z (fst x , snd y) = R z (x , y)
 
 sumc : ℕ ← List Coin
-sumc =  ⦇ [ fun (const zero) ,
-            fun (liftc plus) ○ bimapR _ (fun val) idR ] ⦈ 
+sumc =  ⦅ [ fun (const zero) ,
+            fun (liftc plus) ○ bimapR _ (fun val) idR ] ⦆
   where plus : ℕ × ℕ → ℕ
         plus (m , n) = m + n
 
 bound : Coin ← List Coin
-bound = ⦇ [ fun (const 1p) ,
-            liftC ((_≥c_ ○ fun proj₁) ⊓ (_≥c_ ○ fun proj₂)) ] ⦈
+bound = ⦅ [ fun (const 1p) ,
+            liftC ((_≥c_ ○ fun proj₁) ⊓ (_≥c_ ○ fun proj₂)) ] ⦆
 
 ordered? : List Coin ← List Coin
-ordered? = ⦇ [ nil , liftC scons ] ⦈
+ordered? = ⦅ [ nil , liftC scons ] ⦆
   where scons : List Coin ← Coin × List Coin ⊣ lzero
         scons (In (inj₁ tt)) (c , cs) = ⊥
         scons (In (inj₂ ds)) (c , cs) = (In (inj₂ ds) ≡ c ∷ cs) × mapR ((Λ _≤c_ c) ¿) cs cs
@@ -85,7 +85,7 @@ S = [ ⟨ fun (const 0) , Π ⟩ , liftC ⟨ plus , raise ⟩ ]
         raise b' (c , n , b) = (b' ≥c c) × (c ≥c b)
 
 sumbound : (ℕ × Coin) ← List Coin
-sumbound = ⦇ S ⦈
+sumbound = ⦅ S ⦆
 
 Q : ⟦ ListF ⟧ Coin (ℕ × Coin) ← ⟦ ListF ⟧ Coin (ℕ × Coin)
 Q (inj₁ tt) (inj₁ tt) = ⊤
@@ -363,9 +363,9 @@ greedy-lemma 10p 10p n .n cs c≤d refl sb = (cs , ⊴-refl' , sb)
 {-
   sumc xs = n ≡ xs ⊵ coin-change n
   coin-change ⊑ (sumc ˘) ↾ (_⊴_)
-  coin-change ⊑ ⦇[ zero, plus ∘ (val × id) ]⦈ ˘ ↾ (_⊴_)
+  coin-change ⊑ ⦅[ zero, plus ∘ (val × id) ]⦆ ˘ ↾ (_⊴_)
 
-  coin-change = ⦇([ zero , plus ∘ (val × id) ] ˘ ↾ Q) ˘⦈ ˘
+  coin-change = ⦅([ zero , plus ∘ (val × id) ] ˘ ↾ Q) ˘⦆ ˘
     where Q = (id + _≤c_ × id)
 -}
 
@@ -417,13 +417,13 @@ coin-change-der = _ ,
      (sumbound ˘ ↾ _⊴_) ○ fun ten
    ⊒⟨ ○-monotonic-l (proj₂ (↾-subst (sumbound ˘) (idR ○ sumbound ˘) _⊴_ (id-elim-l , id-intro-l))) ⟩
      ((idR ○ sumbound ˘) ↾ _⊴_) ○ fun ten
-   ⊒⟨ ○-monotonic-l (proj₂ (↾-subst (idR ○ sumbound ˘) (⦇ fun In ⦈ ○ sumbound ˘) _⊴_
+   ⊒⟨ ○-monotonic-l (proj₂ (↾-subst (idR ○ sumbound ˘) (⦅ fun In ⦆ ○ sumbound ˘) _⊴_
        (○-monotonic-l (idR-foldR-⊑ ListF) , ○-monotonic-l (idR-foldR-⊒ ListF)))) ⟩
-     ((⦇ fun In ⦈ ○ (sumbound ˘)) ↾ _⊴_) ○ fun ten
+     ((⦅ fun In ⦆ ○ (sumbound ˘)) ↾ _⊴_) ○ fun ten
    ⊒⟨ ○-monotonic-l (greedy-ana-cxt ⊴-isPreorder fun-simple mono-cond greedy-cond) ⟩
-     (⦇ fun In ⦈ ○ ⦇ (S ˘ ↾ Q) ˘ ⦈ ˘) ○ fun ten
+     (⦅ fun In ⦆ ○ ⦅ (S ˘ ↾ Q) ˘ ⦆ ˘) ○ fun ten
    ⊒⟨ ○-monotonic-l (○-monotonic-r (˘-monotonic-⇐ (foldR-monotonic ListF (fun pick-max ˘) ((S ˘ ↾ Q) ˘) (˘-monotonic-⇐ pick-max⊑S˘↾Q)))) ⟩
-     (⦇ fun In ⦈ ○ ⦇ (fun pick-max) ˘ ⦈ ˘) ○ fun ten
+     (⦅ fun In ⦆ ○ ⦅ (fun pick-max) ˘ ⦆ ˘) ○ fun ten
    ⊒⟨ ○-monotonic-l (proj₂ (hylo-refine In pick-max wf)) ⟩
      fun (hylo In pick-max wf) ○ fun ten
    ⊒⟨ fun○-⊒ ⟩
@@ -603,7 +603,7 @@ coin-change-der = _ ,
    mono-cond (In (inj₂ (fst x , snd xs))) (inj₂ (fst .x , snd ys)) (.(inj₂ (fst x , snd xs)) , (refl , xs⊴ys) , refl)
      = (x ∷ ys , refl , ⊴-cons xs⊴ys)
 
-   greedy-cond : fun In ○ fmapR ListF (⦇ fun In ⦈ ○ ⦇ S ⦈ ˘) ○ (Q ⊓ (S ˘ ○ S)) ˘ ⊑ (_⊴_) ˘ ○ fun In ○ fmapR ListF (⦇ fun In ⦈ ○ ⦇ S ⦈ ˘)
+   greedy-cond : fun In ○ fmapR ListF (⦅ fun In ⦆ ○ ⦅ S ⦆ ˘) ○ (Q ⊓ (S ˘ ○ S)) ˘ ⊑ (_⊴_) ˘ ○ fun In ○ fmapR ListF (⦅ fun In ⦆ ○ ⦅ S ⦆ ˘)
    greedy-cond (In (inj₁ tt)) (inj₁ tt) (.(inj₁ tt) , (inj₁ tt , (Data.Unit.tt , (s , p) , _ , _) , sb) , refl) = ([] , (inj₁ tt , sb , refl) , ⊴-refl')
    greedy-cond (In (inj₁ tt)) (inj₁ tt) (.(inj₁ tt) , (inj₂ n , (() , (s , p) , _ , _) , sb) , refl)
    greedy-cond (In (inj₁ tt)) (inj₂ m) (.(inj₁ tt) , (inj₁ tt , (() , (s , p) , _ , _) , sb) , refl)

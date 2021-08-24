@@ -9,6 +9,8 @@ open import AlgebraicReasoning.Relations
 
 -- coreflexives built from sets
 
+infix 21 _¿
+
 _¿ : ∀ {i} {A : Set i} → ℙ A → (A ← A)
 (p ¿) b a = (a ≡ b) × p a
 

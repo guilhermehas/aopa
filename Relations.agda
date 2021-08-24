@@ -125,6 +125,8 @@ R ≛ S = ∀ a b → (R a b → S a b) × (S a b → R a b)
 
 -- converse and composition
 
+infix 21 _˘
+
 _˘ : ∀ {i j k} {A : Set i} {B : Set j} → (B ← A ⊣ k) → A ← B
 (r ˘) a b = r b a
 

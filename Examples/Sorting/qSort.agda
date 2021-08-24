@@ -4,7 +4,7 @@ open import Relation.Nullary using (Dec; yes; no)
 
 open import Data.Empty
 open import Data.Unit using (⊤; tt)
-open import Data.Function
+open import Function
 open import Data.Product
 open import Data.Sum hiding (isInj₁)
 open import Data.Nat using (ℕ ; zero; suc; _≤′_; _<′_ ; ≤′-refl; ≤′-step)

@@ -3,7 +3,7 @@ module Data.Tree.Unfold where
 open import Relation.Binary.PropositionalEquality 
       using (inspect; _with-≡_)
 open import Data.Empty using (⊥)
-open import Data.Function using (id)
+open import Function using (id)
 open import Data.Unit using (⊤; tt)
 open import Data.Product using (Σ; _×_; _,_)
 open import Data.Sum using (_⊎_; inj₁; inj₂)

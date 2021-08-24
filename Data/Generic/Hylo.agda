@@ -25,92 +25,92 @@ open import Data.Generic.Core
 open import Data.Generic.Membership
 open import Data.Generic.Fold
 
--- ⦇ R ⦈ ○ ⦇ S ⦈ ˘ is a least prefixed point. That is,
---    R ○ fmapR F (⦇ R ⦈ ○ ⦇ S ⦈ ˘) ○ S ˘ ⊑ ⦇ R ⦈ ○ ⦇ S ⦈ ˘     ∧
---    ∀ {X} → R ○ fmapR F X ○ S ˘ ⊑ X → ⦇ R ⦈ ○ ⦇ S ⦈ ˘ ⊑ X
+-- ⦅ R ⦆ ○ ⦅ S ⦆ ˘ is a least prefixed point. That is,
+--    R ○ fmapR F (⦅ R ⦆ ○ ⦅ S ⦆ ˘) ○ S ˘ ⊑ ⦅ R ⦆ ○ ⦅ S ⦆ ˘     ∧
+--    ∀ {X} → R ○ fmapR F X ○ S ˘ ⊑ X → ⦅ R ⦆ ○ ⦅ S ⦆ ˘ ⊑ X
 
 
 hylo-lpfp : {A B C : Set} {F : PolyF} {R : B ← ⟦ F ⟧ A B} {S : C ← ⟦ F ⟧ A C}
-          → LeastPrefixedPoint (_⊑_) (λ X → R ○ fmapR F X ○ S ˘) (⦇ R ⦈ ○ ⦇ S ⦈ ˘)
+          → LeastPrefixedPoint (_⊑_) (λ X → R ○ fmapR F X ○ S ˘) (⦅ R ⦆ ○ ⦅ S ⦆ ˘)
 hylo-lpfp {F = F} {R} {S} = (pfp , least)
   where
-    pfp : R ○ fmapR F (⦇ R ⦈ ○ ⦇ S ⦈ ˘) ○ S ˘ ⊑ ⦇ R ⦈ ○ ⦇ S ⦈ ˘
+    pfp : R ○ fmapR F (⦅ R ⦆ ○ ⦅ S ⦆ ˘) ○ S ˘ ⊑ ⦅ R ⦆ ○ ⦅ S ⦆ ˘
     pfp =
       ⊑-begin
-        R ○ fmapR F (⦇ R ⦈ ○ ⦇ S ⦈ ˘) ○ S ˘
+        R ○ fmapR F (⦅ R ⦆ ○ ⦅ S ⦆ ˘) ○ S ˘
       ⊑⟨ ○-monotonic-r (○-monotonic-l (fmapR-functor-⊒ F)) ⟩
-        R ○ (fmapR F ⦇ R ⦈ ○ fmapR F (⦇ S ⦈ ˘)) ○ S ˘
+        R ○ (fmapR F ⦅ R ⦆ ○ fmapR F (⦅ S ⦆ ˘)) ○ S ˘
       ⊑⟨ ○-monotonic-r ○-assocr ⟩
-        R ○ fmapR F ⦇ R ⦈ ○ fmapR F (⦇ S ⦈ ˘) ○ S ˘
-      ⊑⟨ ⇦-mono-l (R ● fmapR F ⦇ R ⦈ ‥) (⦇ R ⦈ ● fun In ‥) (foldR-computation-⊒ R) ⟩
-        ⦇ R ⦈ ○ fun In ○ fmapR F (⦇ S ⦈ ˘) ○ S ˘
-      ⊑⟨ ○-monotonic-r ⦇S⦈˘-computation ⟩
-        ⦇ R ⦈ ○ ⦇ S ⦈ ˘
+        R ○ fmapR F ⦅ R ⦆ ○ fmapR F (⦅ S ⦆ ˘) ○ S ˘
+      ⊑⟨ ⇦-mono-l (R ● fmapR F ⦅ R ⦆ ‥) (⦅ R ⦆ ● fun In ‥) (foldR-computation-⊒ R) ⟩
+        ⦅ R ⦆ ○ fun In ○ fmapR F (⦅ S ⦆ ˘) ○ S ˘
+      ⊑⟨ ○-monotonic-r ⦅S⦆˘-computation ⟩
+        ⦅ R ⦆ ○ ⦅ S ⦆ ˘
       ⊑∎
-     where ⦇S⦈˘-computation : fun In ○ fmapR F (⦇ S ⦈ ˘) ○ S ˘ ⊑ ⦇ S ⦈ ˘
-           ⦇S⦈˘-computation =
+     where ⦅S⦆˘-computation : fun In ○ fmapR F (⦅ S ⦆ ˘) ○ S ˘ ⊑ ⦅ S ⦆ ˘
+           ⦅S⦆˘-computation =
              ⊒-begin
-               ⦇ S ⦈ ˘
+               ⦅ S ⦆ ˘
              ⊒⟨ ˘-monotonic-⇐ (foldR-computation'-⊒ S) ⟩
-               (S ○ fmapR F ⦇ S ⦈ ○ fun In ˘) ˘
+               (S ○ fmapR F ⦅ S ⦆ ○ fun In ˘) ˘
              ⊒⟨ ˘-○-distr3-⊒ S _ _ ⟩
-               ((fun In) ˘) ˘ ○ (fmapR F ⦇ S ⦈) ˘ ○ S ˘
+               ((fun In) ˘) ˘ ○ (fmapR F ⦅ S ⦆) ˘ ○ S ˘
              ⊒⟨ ○-monotonic-l ˘-idempotent-⊒ ⟩
-               fun In ○ fmapR F ⦇ S ⦈ ˘ ○ S ˘
+               fun In ○ fmapR F ⦅ S ⦆ ˘ ○ S ˘
              ⊒⟨ ○-monotonic-r (○-monotonic-l (fmapR-˘-preservation-⊒ F)) ⟩
-               fun In ○ fmapR F (⦇ S ⦈ ˘) ○ S ˘
+               fun In ○ fmapR F (⦅ S ⦆ ˘) ○ S ˘
              ⊒∎
 
-    least : ∀ {X} → R ○ fmapR F X ○ S ˘ ⊑ X → ⦇ R ⦈ ○ ⦇ S ⦈ ˘ ⊑ X
+    least : ∀ {X} → R ○ fmapR F X ○ S ˘ ⊑ X → ⦅ R ⦆ ○ ⦅ S ⦆ ˘ ⊑ X
     least {X} =
       ⇐-begin
-        ⦇ R ⦈ ○ ⦇ S ⦈ ˘ ⊑ X
+        ⦅ R ⦆ ○ ⦅ S ⦆ ˘ ⊑ X
       ⇐⟨ /-universal-⇒ ⟩
-        ⦇ R ⦈ ⊑ X / (⦇ S ⦈ ˘)
-      ⇐⟨ foldR-universal-⇐-⊒ F (X / (⦇ S ⦈ ˘)) R ⟩
-        R ○ fmapR F (X / (⦇ S ⦈ ˘)) ⊑ (X / (⦇ S ⦈ ˘)) ○ fun In
+        ⦅ R ⦆ ⊑ X / (⦅ S ⦆ ˘)
+      ⇐⟨ foldR-universal-⇐-⊒ F (X / (⦅ S ⦆ ˘)) R ⟩
+        R ○ fmapR F (X / (⦅ S ⦆ ˘)) ⊑ (X / (⦅ S ⦆ ˘)) ○ fun In
       ⇐⟨ ⊑-trans id-elim-r ⟩
-        (R ○ fmapR F (X / (⦇ S ⦈ ˘))) ○ idR ⊑ (X / (⦇ S ⦈ ˘)) ○ fun In
+        (R ○ fmapR F (X / (⦅ S ⦆ ˘))) ○ idR ⊑ (X / (⦅ S ⦆ ˘)) ○ fun In
       ⇐⟨ ⊑-trans (○-monotonic-r fun-entire) ⟩
-        (R ○ fmapR F (X / (⦇ S ⦈ ˘))) ○ (fun In ˘) ○ (fun In) ⊑ (X / (⦇ S ⦈ ˘)) ○ fun In
-      ⇐⟨ ⇦-mono-l (R ○ fmapR F (X / (⦇ S ⦈ ˘)) ● (fun In ˘) ‥) ((X / (⦇ S ⦈ ˘)) ‥) ⟩
-        (R ○ fmapR F (X / (⦇ S ⦈ ˘))) ○ (fun In ˘) ⊑ X / (⦇ S ⦈ ˘)
+        (R ○ fmapR F (X / (⦅ S ⦆ ˘))) ○ (fun In ˘) ○ (fun In) ⊑ (X / (⦅ S ⦆ ˘)) ○ fun In
+      ⇐⟨ ⇦-mono-l (R ○ fmapR F (X / (⦅ S ⦆ ˘)) ● (fun In ˘) ‥) ((X / (⦅ S ⦆ ˘)) ‥) ⟩
+        (R ○ fmapR F (X / (⦅ S ⦆ ˘))) ○ (fun In ˘) ⊑ X / (⦅ S ⦆ ˘)
       ⇐⟨ /-universal-⇐ ⟩
-        ((R ○ fmapR F (X / (⦇ S ⦈ ˘))) ○ (fun In ˘)) ○ ⦇ S ⦈ ˘ ⊑ X
+        ((R ○ fmapR F (X / (⦅ S ⦆ ˘))) ○ (fun In ˘)) ○ ⦅ S ⦆ ˘ ⊑ X
       ⇐⟨ ⊑-trans ○-assocr ⟩
-        (R ○ fmapR F (X / (⦇ S ⦈ ˘))) ○ (fun In ˘) ○ ⦇ S ⦈ ˘ ⊑ X
+        (R ○ fmapR F (X / (⦅ S ⦆ ˘))) ○ (fun In ˘) ○ ⦅ S ⦆ ˘ ⊑ X
       ⇐⟨ ⊑-trans (○-monotonic-r In˘FS˘⊑FS˘S˘) ⟩
-        (R ○ fmapR F (X / (⦇ S ⦈ ˘))) ○ (fmapR F (⦇ S ⦈ ˘)) ○ S ˘ ⊑ X
+        (R ○ fmapR F (X / (⦅ S ⦆ ˘))) ○ (fmapR F (⦅ S ⦆ ˘)) ○ S ˘ ⊑ X
       ⇐⟨ ⊑-trans ○-assocl ⟩
-        ((R ○ fmapR F (X / (⦇ S ⦈ ˘))) ○ fmapR F (⦇ S ⦈ ˘)) ○ S ˘ ⊑ X
+        ((R ○ fmapR F (X / (⦅ S ⦆ ˘))) ○ fmapR F (⦅ S ⦆ ˘)) ○ S ˘ ⊑ X
       ⇐⟨ ⊑-trans (○-monotonic-l ○-assocr) ⟩
-        (R ○ (fmapR F (X / (⦇ S ⦈ ˘))) ○ fmapR F (⦇ S ⦈ ˘)) ○ S ˘ ⊑ X
+        (R ○ (fmapR F (X / (⦅ S ⦆ ˘))) ○ fmapR F (⦅ S ⦆ ˘)) ○ S ˘ ⊑ X
       ⇐⟨ ⊑-trans (○-monotonic-l (⇦-mono-r (R ‥) (fmapR-functor-⊑ F))) ⟩
-        (R ○ fmapR F (X / (⦇ S ⦈ ˘) ○ ⦇ S ⦈ ˘)) ○ S ˘ ⊑ X
-      ⇐⟨ ⊑-trans (⇦-mono-l ((R ○ fmapR F (X / (⦇ S ⦈ ˘) ○ ⦇ S ⦈ ˘)) ‥) (R ● fmapR F X ‥) (○-monotonic-r (fmapR-monotonic F (/-universal-⇒ ⊑-refl)))) ⟩
+        (R ○ fmapR F (X / (⦅ S ⦆ ˘) ○ ⦅ S ⦆ ˘)) ○ S ˘ ⊑ X
+      ⇐⟨ ⊑-trans (⇦-mono-l ((R ○ fmapR F (X / (⦅ S ⦆ ˘) ○ ⦅ S ⦆ ˘)) ‥) (R ● fmapR F X ‥) (○-monotonic-r (fmapR-monotonic F (/-universal-⇒ ⊑-refl)))) ⟩
         R ○ fmapR F X ○ S ˘ ⊑ X
       ⇐∎
      where
-       In˘FS˘⊑FS˘S˘ : fun In ˘ ○ ⦇ S ⦈ ˘ ⊑ fmapR F (⦇ S ⦈ ˘) ○ S ˘
+       In˘FS˘⊑FS˘S˘ : fun In ˘ ○ ⦅ S ⦆ ˘ ⊑ fmapR F (⦅ S ⦆ ˘) ○ S ˘
        In˘FS˘⊑FS˘S˘ =
          (⇐-begin
-            fun In ˘ ○ ⦇ S ⦈ ˘ ⊑ fmapR F (⦇ S ⦈ ˘) ○ S ˘
-          ⇐⟨ ⊑-trans (˘-○-distr-⊒ (⦇ S ⦈) (fun In)) ⟩
-            (⦇ S ⦈ ○ fun In) ˘ ⊑ fmapR F (⦇ S ⦈ ˘) ○ S ˘
+            fun In ˘ ○ ⦅ S ⦆ ˘ ⊑ fmapR F (⦅ S ⦆ ˘) ○ S ˘
+          ⇐⟨ ⊑-trans (˘-○-distr-⊒ (⦅ S ⦆) (fun In)) ⟩
+            (⦅ S ⦆ ○ fun In) ˘ ⊑ fmapR F (⦅ S ⦆ ˘) ○ S ˘
           ⇐⟨ ⊒-trans (○-monotonic-l (fmapR-˘-preservation-⊑ F)) ⟩
-            (⦇ S ⦈ ○ fun In) ˘ ⊑ (fmapR F ⦇ S ⦈)˘ ○ S ˘
-          ⇐⟨ ⊒-trans (˘-○-distr-⊑ S (fmapR F ⦇ S ⦈)) ⟩
-            (⦇ S ⦈ ○ fun In) ˘ ⊑ (S ○ fmapR F ⦇ S ⦈) ˘
+            (⦅ S ⦆ ○ fun In) ˘ ⊑ (fmapR F ⦅ S ⦆)˘ ○ S ˘
+          ⇐⟨ ⊒-trans (˘-○-distr-⊑ S (fmapR F ⦅ S ⦆)) ⟩
+            (⦅ S ⦆ ○ fun In) ˘ ⊑ (S ○ fmapR F ⦅ S ⦆) ˘
           ⇐⟨ ˘-monotonic-⇒ ⟩
-            ⦇ S ⦈ ○ fun In ⊑ S ○ fmapR F ⦇ S ⦈
+            ⦅ S ⦆ ○ fun In ⊑ S ○ fmapR F ⦅ S ⦆
           ⇐∎) (foldR-computation-⊑ S) 
 
--- ⦇ R ⦈ ○ ⦇ S ⦈ ˘ is a least fixed point. That is, 
---    R ○ fmapR F (⦇ R ⦈ ○ ⦇ S ⦈ ˘) ○ S ˘ ≑ ⦇ R ⦈ ○ ⦇ S ⦈ ˘     ∧
---    ∀ {X} → R ○ fmapR F X ○ S ˘ ≑ X → ⦇ R ⦈ ○ ⦇ S ⦈ ˘ ≑ X
+-- ⦅ R ⦆ ○ ⦅ S ⦆ ˘ is a least fixed point. That is,
+--    R ○ fmapR F (⦅ R ⦆ ○ ⦅ S ⦆ ˘) ○ S ˘ ≑ ⦅ R ⦆ ○ ⦅ S ⦆ ˘     ∧
+--    ∀ {X} → R ○ fmapR F X ○ S ˘ ≑ X → ⦅ R ⦆ ○ ⦅ S ⦆ ˘ ≑ X
 
 hylo-lfp : {A B C : Set} {F : PolyF} {R : B ← ⟦ F ⟧ A B} {S : C ← ⟦ F ⟧ A C}
-          → LeastFixedPoint (_≑_) (_⊑_) (λ X → R ○ fmapR F X ○ S ˘) (⦇ R ⦈ ○ ⦇ S ⦈ ˘)
+          → LeastFixedPoint (_≑_) (_⊑_) (λ X → R ○ fmapR F X ○ S ˘) (⦅ R ⦆ ○ ⦅ S ⦆ ˘)
 hylo-lfp = lpfp⇒lfp _≑_ _⊑_ ⊑-isPartialOrder _ (λ x⊑y → ○-monotonic-r (○-monotonic-l (bimapR-monotonic _ ⊑-refl x⊑y))) _ hylo-lpfp
 
 
@@ -273,17 +273,17 @@ hylo-fix {F} f g wf =
 hylo-refine : {F : PolyF} → ∀ {A B C : Set}
             → (f : ⟦ F ⟧ A B → B) → (g : C → ⟦ F ⟧ A C)
             → (wf : well-found (ε F ○ fun g))
-            → ⦇ fun f  ⦈ ○ ⦇ (fun g)˘ ⦈ ˘ ≑ fun (hylo f g wf)
+            → ⦅ fun f  ⦆ ○ ⦅ (fun g)˘ ⦆ ˘ ≑ fun (hylo f g wf)
 hylo-refine {F} f g wf =
   hylo-unique wf fp (hylo-fix f g wf)
- where fp : ⦇ fun f ⦈ ○ ⦇ (fun g)˘ ⦈ ˘ ≑
-                fun f ○ fmapR F (⦇ fun f ⦈ ○ ⦇ (fun g)˘ ⦈ ˘) ○ fun g
+ where fp : ⦅ fun f ⦆ ○ ⦅ (fun g)˘ ⦆ ˘ ≑
+                fun f ○ fmapR F (⦅ fun f ⦆ ○ ⦅ (fun g)˘ ⦆ ˘) ○ fun g
        fp =
          ≑-begin
-            ⦇ fun f ⦈ ○ ⦇ (fun g)˘ ⦈ ˘
+            ⦅ fun f ⦆ ○ ⦅ (fun g)˘ ⦆ ˘
          ≑⟨ ≑-sym (proj₁ hylo-lfp) ⟩
-            fun f ○ fmapR F (⦇ fun f ⦈ ○ ⦇ (fun g)˘ ⦈ ˘) ○ ((fun g)˘) ˘
+            fun f ○ fmapR F (⦅ fun f ⦆ ○ ⦅ (fun g)˘ ⦆ ˘) ○ ((fun g)˘) ˘
          ≑⟨ ○-cong-r (○-cong-r ˘-idempotent) ⟩
-            fun f ○ fmapR F (⦇ fun f ⦈ ○ ⦇ fun g ˘ ⦈ ˘) ○ fun g
+            fun f ○ fmapR F (⦅ fun f ⦆ ○ ⦅ fun g ˘ ⦆ ˘) ○ fun g
          ≑∎
          

@@ -161,9 +161,9 @@ takeWhile-der {A} p = _ ,
   (⊒-begin
      (mapR ((p ♯) ¿) ○ _≼_) ↾ _≽_
    ⊒⟨ proj₂ (↾-subst (mapR ((p ♯) ¿) ○ _≼_) _ _≽_ map○≼≑foldR) ⟩
-     (⦇ [ nil , (nil ○ !) ⊔ (cons ○ ((p ♯) ¿ ⨉ idR)) ] ⦈) ↾ _≽_
+     (⦅ [ nil , (nil ○ !) ⊔ (cons ○ ((p ♯) ¿ ⨉ idR)) ] ⦆) ↾ _≽_
    ⊒⟨ greedy-cata ListF ≽-isPreorder (mono-cond (p ♯)) ⟩
-     ⦇ ([ nil , (nil ○ !) ⊔ (cons ○ ((p ♯) ¿ ⨉ idR)) ] ↾ _≽_) ⦈
+     ⦅ ([ nil , (nil ○ !) ⊔ (cons ○ ((p ♯) ¿ ⨉ idR)) ] ↾ _≽_) ⦆
    ⊒⟨ foldR-fold ListF pcons _ pcons⊑S↾≽ ⟩
      fun (fold ListF pcons)
    ⊒∎)

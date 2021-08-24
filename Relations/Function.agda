@@ -20,7 +20,7 @@ fun-simple : ∀ {i} {A B : Set i} {f : A → B}
              → fun f ○ (fun f)˘ ⊑ idR
 fun-simple {f = f} b' b (a , fa≡b , fa≡b') = 
    ≡-begin
-       b 
+       b
    ≡⟨ sym fa≡b ⟩
        f a
    ≡⟨ fa≡b' ⟩

@@ -28,14 +28,14 @@ greedy-cata : (F : PolyF) → {A B : Set}
                    → {S : B ← ⟦ F ⟧ A B} {R : B ← B}
                    → IsPreorder (_≡_) R
                    → S ○ fmapR F (R ˘) ⊑ (R ˘) ○ S
-                   →  ⦇ S ↾ R ⦈ ⊑ ⦇ S ⦈ ↾ R
+                   →  ⦅ S ↾ R ⦆ ⊑ ⦅ S ⦆ ↾ R
 greedy-cata F {S = S} {R} isPre SFR˘⊑R˘S =
   (⇐-begin
-     ⦇ S ↾ R ⦈ ⊑ ⦇ S ⦈ ↾ R
+     ⦅ S ↾ R ⦆ ⊑ ⦅ S ⦆ ↾ R
    ⇐⟨ ↾-universal-⇐ ⟩
-     ((⦇ S ↾ R ⦈ ⊑ ⦇ S ⦈) × (⦇ S ↾ R ⦈ ○ ⦇ S ⦈ ˘ ⊑ R))
+     ((⦅ S ↾ R ⦆ ⊑ ⦅ S ⦆) × (⦅ S ↾ R ⦆ ○ ⦅ S ⦆ ˘ ⊑ R))
    ⇐⟨ _,_ (foldR-monotonic F (S ↾ R) S (↾-universal-⇒₁ {X = S ↾ R} {S} {R} ⊑-refl)) ⟩
-     ⦇ S ↾ R ⦈ ○ ⦇ S ⦈ ˘ ⊑ R
+     ⦅ S ↾ R ⦆ ○ ⦅ S ⦆ ˘ ⊑ R
    ⇐⟨ proj₂ hylo-lpfp ⟩
      (S ↾ R) ○ fmapR F R ○ (S ˘) ⊑ R
    ⇐⟨ ⊑-trans (○-monotonic-r FRS˘⊑S˘R) ⟩
@@ -71,57 +71,57 @@ greedy-ana-cxt : {A B C : Set} {F : PolyF} {S : C ← ⟦ F ⟧ A C} {T : B ← 
                → IsPreorder (_≡_) R
                → S ○ S ˘ ⊑ idR
                → S ○ fmapR F R ⊑ R ○ S
-               → S ○ fmapR F (⦇ S ⦈ ○ ⦇ T ⦈ ˘) ○ (Q ⊓ (T ˘ ○ T)) ˘ ⊑ R ˘ ○ S ○ fmapR F (⦇ S ⦈ ○ ⦇ T ⦈ ˘)
-               → ⦇ S ⦈ ○ ⦇((T ˘) ↾ Q) ˘ ⦈ ˘ ⊑ (⦇ S ⦈ ○ ⦇ T ⦈ ˘) ↾ R
+               → S ○ fmapR F (⦅ S ⦆ ○ ⦅ T ⦆ ˘) ○ (Q ⊓ (T ˘ ○ T)) ˘ ⊑ R ˘ ○ S ○ fmapR F (⦅ S ⦆ ○ ⦅ T ⦆ ˘)
+               → ⦅ S ⦆ ○ ⦅((T ˘) ↾ Q) ˘ ⦆ ˘ ⊑ (⦅ S ⦆ ○ ⦅ T ⦆ ˘) ↾ R
 greedy-ana-cxt {F = F}{S}{T}{R}{Q} isPre S-simple mono greedy =
   (⇐-begin
-     ⦇ S ⦈ ○ ⦇((T ˘) ↾ Q) ˘ ⦈ ˘ ⊑ (⦇ S ⦈ ○ ⦇ T ⦈ ˘) ↾ R
+     ⦅ S ⦆ ○ ⦅((T ˘) ↾ Q) ˘ ⦆ ˘ ⊑ (⦅ S ⦆ ○ ⦅ T ⦆ ˘) ↾ R
    ⇐⟨ proj₂ hylo-lpfp ⟩
-     S ○ fmapR F ((⦇ S ⦈ ○ ⦇ T ⦈ ˘) ↾ R) ○ (T ˘ ↾ Q) ⊑ (⦇ S ⦈ ○ ⦇ T ⦈ ˘) ↾ R
+     S ○ fmapR F ((⦅ S ⦆ ○ ⦅ T ⦆ ˘) ↾ R) ○ (T ˘ ↾ Q) ⊑ (⦅ S ⦆ ○ ⦅ T ⦆ ˘) ↾ R
    ⇐⟨ ↾-universal-⇐ ⟩
-    ((S ○ fmapR F ((⦇ S ⦈ ○ ⦇ T ⦈ ˘) ↾ R) ○ (T ˘ ↾ Q) ⊑ ⦇ S ⦈ ○ ⦇ T ⦈ ˘) ×
-     ((S ○ fmapR F ((⦇ S ⦈ ○ ⦇ T ⦈ ˘) ↾ R) ○ (T ˘ ↾ Q)) ○ (⦇ S ⦈ ○ ⦇ T ⦈ ˘) ˘ ⊑ R))
+    ((S ○ fmapR F ((⦅ S ⦆ ○ ⦅ T ⦆ ˘) ↾ R) ○ (T ˘ ↾ Q) ⊑ ⦅ S ⦆ ○ ⦅ T ⦆ ˘) ×
+     ((S ○ fmapR F ((⦅ S ⦆ ○ ⦅ T ⦆ ˘) ↾ R) ○ (T ˘ ↾ Q)) ○ (⦅ S ⦆ ○ ⦅ T ⦆ ˘) ˘ ⊑ R))
    ⇐∎) (pf₁ , pf₂)
  where
-   pf₁ : S ○ fmapR F ((⦇ S ⦈ ○ ⦇ T ⦈ ˘) ↾ R) ○ (T ˘ ↾ Q) ⊑ ⦇ S ⦈ ○ ⦇ T ⦈ ˘
+   pf₁ : S ○ fmapR F ((⦅ S ⦆ ○ ⦅ T ⦆ ˘) ↾ R) ○ (T ˘ ↾ Q) ⊑ ⦅ S ⦆ ○ ⦅ T ⦆ ˘
    pf₁ =
      ⊑-begin
-       S ○ fmapR F ((⦇ S ⦈ ○ ⦇ T ⦈ ˘) ↾ R) ○ (T ˘ ↾ Q)
+       S ○ fmapR F ((⦅ S ⦆ ○ ⦅ T ⦆ ˘) ↾ R) ○ (T ˘ ↾ Q)
      ⊑⟨ ○-monotonic-r (○-monotonic-r (↾-universal-⇒₁ {R = Q} ⊑-refl)) ⟩
-       S ○ fmapR F ((⦇ S ⦈ ○ ⦇ T ⦈ ˘) ↾ R) ○ T ˘
+       S ○ fmapR F ((⦅ S ⦆ ○ ⦅ T ⦆ ˘) ↾ R) ○ T ˘
      ⊑⟨ ○-monotonic-r
           (○-monotonic-l
            (bimapR-monotonic F ⊑-refl (↾-universal-⇒₁ {R = R} ⊑-refl))) ⟩
-       S ○ fmapR F (⦇ S ⦈ ○ ⦇ T ⦈ ˘) ○ T ˘
+       S ○ fmapR F (⦅ S ⦆ ○ ⦅ T ⦆ ˘) ○ T ˘
      ⊑⟨ proj₁ hylo-lpfp ⟩
-       ⦇ S ⦈ ○ ⦇ T ⦈ ˘
+       ⦅ S ⦆ ○ ⦅ T ⦆ ˘
      ⊑∎
 
-   pf₂ : (S ○ fmapR F ((⦇ S ⦈ ○ ⦇ T ⦈ ˘) ↾ R) ○ (T ˘ ↾ Q)) ○ (⦇ S ⦈ ○ ⦇ T ⦈ ˘) ˘ ⊑ R
+   pf₂ : (S ○ fmapR F ((⦅ S ⦆ ○ ⦅ T ⦆ ˘) ↾ R) ○ (T ˘ ↾ Q)) ○ (⦅ S ⦆ ○ ⦅ T ⦆ ˘) ˘ ⊑ R
    pf₂ = 
      ⊑-begin
-       (S ○ fmapR F ((⦇ S ⦈ ○ ⦇ T ⦈ ˘) ↾ R) ○ (T ˘ ↾ Q)) ○ (⦇ S ⦈ ○ ⦇ T ⦈ ˘) ˘
+       (S ○ fmapR F ((⦅ S ⦆ ○ ⦅ T ⦆ ˘) ↾ R) ○ (T ˘ ↾ Q)) ○ (⦅ S ⦆ ○ ⦅ T ⦆ ˘) ˘
      ⊑⟨ ⊑-trans ○-assocr (○-monotonic-r ○-assocr) ⟩ 
-       S ○ fmapR F ((⦇ S ⦈ ○ ⦇ T ⦈ ˘) ↾ R) ○ (T ˘ ↾ Q) ○ (⦇ S ⦈ ○ ⦇ T ⦈ ˘) ˘
-     ⊑⟨ ⇦-mono-r (S ● fmapR F (⦇ S ⦈ ○ ⦇ T ⦈ ˘ ↾ R) ● (T ˘ ↾ Q) ‥) (˘-○-distr-⊑ ⦇ S ⦈ (⦇ T ⦈ ˘)) ⟩
-       S ○ fmapR F ((⦇ S ⦈ ○ ⦇ T ⦈ ˘) ↾ R) ○ (T ˘ ↾ Q) ○ ⦇ T ⦈ ○ ⦇ S ⦈ ˘
-     ⊑⟨ ⇦-mono-r (S ● fmapR F (⦇ S ⦈ ○ ⦇ T ⦈ ˘ ↾ R) ● (T ˘ ↾ Q) ‥) (proj₂ (proj₁ hylo-lfp)) ⟩
-       S ○ fmapR F ((⦇ S ⦈ ○ ⦇ T ⦈ ˘) ↾ R) ○ (T ˘ ↾ Q) ○ T ○ fmapR F (⦇ T ⦈ ○ ⦇ S ⦈ ˘) ○ (S ˘)
+       S ○ fmapR F ((⦅ S ⦆ ○ ⦅ T ⦆ ˘) ↾ R) ○ (T ˘ ↾ Q) ○ (⦅ S ⦆ ○ ⦅ T ⦆ ˘) ˘
+     ⊑⟨ ⇦-mono-r (S ● fmapR F (⦅ S ⦆ ○ ⦅ T ⦆ ˘ ↾ R) ● (T ˘ ↾ Q) ‥) (˘-○-distr-⊑ ⦅ S ⦆ (⦅ T ⦆ ˘)) ⟩
+       S ○ fmapR F ((⦅ S ⦆ ○ ⦅ T ⦆ ˘) ↾ R) ○ (T ˘ ↾ Q) ○ ⦅ T ⦆ ○ ⦅ S ⦆ ˘
+     ⊑⟨ ⇦-mono-r (S ● fmapR F (⦅ S ⦆ ○ ⦅ T ⦆ ˘ ↾ R) ● (T ˘ ↾ Q) ‥) (proj₂ (proj₁ hylo-lfp)) ⟩
+       S ○ fmapR F ((⦅ S ⦆ ○ ⦅ T ⦆ ˘) ↾ R) ○ (T ˘ ↾ Q) ○ T ○ fmapR F (⦅ T ⦆ ○ ⦅ S ⦆ ˘) ○ (S ˘)
      ⊑⟨ ⊑-refl ⟩ 
-       S ○ fmapR F ((⦇ S ⦈ ○ ⦇ T ⦈ ˘) ↾ R) ○ ((T ˘) ⊓ (Q / T)) ○ T ○ fmapR F (⦇ T ⦈ ○ ⦇ S ⦈ ˘) ○ (S ˘)
-     ⊑⟨ ⇦-mono (S ● fmapR F ((⦇ S ⦈ ○ ⦇ T ⦈ ˘) ↾ R) ‥) ((T ˘) ⊓ (Q / T) ● T ‥) (((T ˘ ○ T) ⊓ (Q / T ○ T)) ‥) ○-⊓-distr-r ⟩
-       S ○ fmapR F ((⦇ S ⦈ ○ ⦇ T ⦈ ˘) ↾ R) ○ ((T ˘ ○ T) ⊓ ((Q / T) ○ T)) ○ fmapR F (⦇ T ⦈ ○ ⦇ S ⦈ ˘) ○ (S ˘)
-     ⊑⟨ ⇦-mono (S ● fmapR F ((⦇ S ⦈ ○ ⦇ T ⦈ ˘) ↾ R) ‥) (((T ˘ ○ T) ⊓ (Q / T ○ T)) ‥) (((T ˘ ○ T) ⊓ Q) ‥) (⊓-monotonic ⊑-refl (/-universal-⇒ ⊑-refl)) ⟩
-       S ○ fmapR F ((⦇ S ⦈ ○ ⦇ T ⦈ ˘) ↾ R) ○ ((T ˘ ○ T) ⊓ Q) ○ fmapR F (⦇ T ⦈ ○ ⦇ S ⦈ ˘) ○ (S ˘)
-     ⊑⟨ ○-monotonic-r (○-monotonic-r (○-monotonic-r (○-monotonic-l (fmapR-monotonic F (˘-○-distr-⊒ ⦇ S ⦈ (⦇ T ⦈ ˘)))))) ⟩
-       S ○ fmapR F ((⦇ S ⦈ ○ ⦇ T ⦈ ˘) ↾ R) ○ ((T ˘ ○ T) ⊓ Q) ○ fmapR F ((⦇ S ⦈ ○ ⦇ T ⦈ ˘) ˘) ○ (S ˘)
+       S ○ fmapR F ((⦅ S ⦆ ○ ⦅ T ⦆ ˘) ↾ R) ○ ((T ˘) ⊓ (Q / T)) ○ T ○ fmapR F (⦅ T ⦆ ○ ⦅ S ⦆ ˘) ○ (S ˘)
+     ⊑⟨ ⇦-mono (S ● fmapR F ((⦅ S ⦆ ○ ⦅ T ⦆ ˘) ↾ R) ‥) ((T ˘) ⊓ (Q / T) ● T ‥) (((T ˘ ○ T) ⊓ (Q / T ○ T)) ‥) ○-⊓-distr-r ⟩
+       S ○ fmapR F ((⦅ S ⦆ ○ ⦅ T ⦆ ˘) ↾ R) ○ ((T ˘ ○ T) ⊓ ((Q / T) ○ T)) ○ fmapR F (⦅ T ⦆ ○ ⦅ S ⦆ ˘) ○ (S ˘)
+     ⊑⟨ ⇦-mono (S ● fmapR F ((⦅ S ⦆ ○ ⦅ T ⦆ ˘) ↾ R) ‥) (((T ˘ ○ T) ⊓ (Q / T ○ T)) ‥) (((T ˘ ○ T) ⊓ Q) ‥) (⊓-monotonic ⊑-refl (/-universal-⇒ ⊑-refl)) ⟩
+       S ○ fmapR F ((⦅ S ⦆ ○ ⦅ T ⦆ ˘) ↾ R) ○ ((T ˘ ○ T) ⊓ Q) ○ fmapR F (⦅ T ⦆ ○ ⦅ S ⦆ ˘) ○ (S ˘)
+     ⊑⟨ ○-monotonic-r (○-monotonic-r (○-monotonic-r (○-monotonic-l (fmapR-monotonic F (˘-○-distr-⊒ ⦅ S ⦆ (⦅ T ⦆ ˘)))))) ⟩
+       S ○ fmapR F ((⦅ S ⦆ ○ ⦅ T ⦆ ˘) ↾ R) ○ ((T ˘ ○ T) ⊓ Q) ○ fmapR F ((⦅ S ⦆ ○ ⦅ T ⦆ ˘) ˘) ○ (S ˘)
      ⊑⟨ ○-monotonic-r (○-monotonic-r greedy-˘) ⟩
-       S ○ fmapR F ((⦇ S ⦈ ○ ⦇ T ⦈ ˘) ↾ R) ○ fmapR F ((⦇ S ⦈ ○ ⦇ T ⦈ ˘) ˘) ○ (S ˘) ○ R
+       S ○ fmapR F ((⦅ S ⦆ ○ ⦅ T ⦆ ˘) ↾ R) ○ fmapR F ((⦅ S ⦆ ○ ⦅ T ⦆ ˘) ˘) ○ (S ˘) ○ R
      ⊑⟨ ⇦-mono (S ‥)
-          (fmapR F (⦇ S ⦈ ○ ⦇ T ⦈ ˘ ↾ R) ● fmapR F ((⦇ S ⦈ ○ ⦇ T ⦈ ˘) ˘) ‥)
-          (fmapR F ((⦇ S ⦈ ○ ⦇ T ⦈ ˘ ↾ R) ○ (⦇ S ⦈ ○ ⦇ T ⦈ ˘) ˘) ‥)
+          (fmapR F (⦅ S ⦆ ○ ⦅ T ⦆ ˘ ↾ R) ● fmapR F ((⦅ S ⦆ ○ ⦅ T ⦆ ˘) ˘) ‥)
+          (fmapR F ((⦅ S ⦆ ○ ⦅ T ⦆ ˘ ↾ R) ○ (⦅ S ⦆ ○ ⦅ T ⦆ ˘) ˘) ‥)
           (fmapR-functor-⊑ F) ⟩
-       S ○ fmapR F (((⦇ S ⦈ ○ ⦇ T ⦈ ˘) ↾ R) ○ ((⦇ S ⦈ ○ ⦇ T ⦈ ˘) ˘)) ○ (S ˘) ○ R
+       S ○ fmapR F (((⦅ S ⦆ ○ ⦅ T ⦆ ˘) ↾ R) ○ ((⦅ S ⦆ ○ ⦅ T ⦆ ˘) ˘)) ○ (S ˘) ○ R
      ⊑⟨ ○-monotonic-r
           (○-monotonic-l (fmapR-monotonic F (↾-universal-⇒₂ ⊑-refl))) ⟩
        S ○ fmapR F R ○ (S ˘) ○ R
@@ -135,20 +135,20 @@ greedy-ana-cxt {F = F}{S}{T}{R}{Q} isPre S-simple mono greedy =
        R
      ⊑∎
     where
-      greedy-˘ : (T ˘ ○ T) ⊓ Q ○ fmapR F ((⦇ S ⦈ ○ ⦇ T ⦈ ˘) ˘) ○ (S ˘) ⊑ fmapR F ((⦇ S ⦈ ○ ⦇ T ⦈ ˘) ˘) ○ (S ˘) ○ R
+      greedy-˘ : (T ˘ ○ T) ⊓ Q ○ fmapR F ((⦅ S ⦆ ○ ⦅ T ⦆ ˘) ˘) ○ (S ˘) ⊑ fmapR F ((⦅ S ⦆ ○ ⦅ T ⦆ ˘) ˘) ○ (S ˘) ○ R
       greedy-˘ =
         (⇐-begin
-           (T ˘ ○ T) ⊓ Q ○ fmapR F ((⦇ S ⦈ ○ ⦇ T ⦈ ˘) ˘) ○ (S ˘) ⊑ fmapR F ((⦇ S ⦈ ○ ⦇ T ⦈ ˘) ˘) ○ (S ˘) ○ R
+           (T ˘ ○ T) ⊓ Q ○ fmapR F ((⦅ S ⦆ ○ ⦅ T ⦆ ˘) ˘) ○ (S ˘) ⊑ fmapR F ((⦅ S ⦆ ○ ⦅ T ⦆ ˘) ˘) ○ (S ˘) ○ R
          ⇐⟨ ˘-universal-⇐ ⟩
-           ((T ˘ ○ T) ⊓ Q ○ fmapR F ((⦇ S ⦈ ○ ⦇ T ⦈ ˘) ˘) ○ (S ˘)) ˘ ⊑ (fmapR F ((⦇ S ⦈ ○ ⦇ T ⦈ ˘) ˘) ○ (S ˘) ○ R) ˘
+           ((T ˘ ○ T) ⊓ Q ○ fmapR F ((⦅ S ⦆ ○ ⦅ T ⦆ ˘) ˘) ○ (S ˘)) ˘ ⊑ (fmapR F ((⦅ S ⦆ ○ ⦅ T ⦆ ˘) ˘) ○ (S ˘) ○ R) ˘
          ⇐⟨ ⊑-trans ˘-○-distr3-⊑ ⟩
-           S ○ (fmapR F ((⦇ S ⦈ ○ ⦇ T ⦈ ˘) ˘) ˘) ○ ((T ˘ ○ T) ⊓ Q) ˘ ⊑ (fmapR F ((⦇ S ⦈ ○ ⦇ T ⦈ ˘) ˘) ○ (S ˘) ○ R) ˘
+           S ○ (fmapR F ((⦅ S ⦆ ○ ⦅ T ⦆ ˘) ˘) ˘) ○ ((T ˘ ○ T) ⊓ Q) ˘ ⊑ (fmapR F ((⦅ S ⦆ ○ ⦅ T ⦆ ˘) ˘) ○ (S ˘) ○ R) ˘
          ⇐⟨ ⊑-trans (○-monotonic-r (○-monotonic-l (fmapR-˘-preservation-⊑ F))) ⟩
-           S ○ fmapR F (⦇ S ⦈ ○ ⦇ T ⦈ ˘) ○ ((T ˘ ○ T) ⊓ Q) ˘ ⊑ (fmapR F ((⦇ S ⦈ ○ ⦇ T ⦈ ˘) ˘) ○ (S ˘) ○ R) ˘
-         ⇐⟨ ⊒-trans (˘-○-distr3-⊒ (fmapR F ((⦇ S ⦈ ○ ⦇ T ⦈ ˘) ˘)) (S ˘) R) ⟩
-           S ○ fmapR F (⦇ S ⦈ ○ ⦇ T ⦈ ˘) ○ ((T ˘ ○ T) ⊓ Q) ˘ ⊑ R ˘ ○ S ○ (fmapR F ((⦇ S ⦈ ○ ⦇ T ⦈ ˘) ˘) ˘)
+           S ○ fmapR F (⦅ S ⦆ ○ ⦅ T ⦆ ˘) ○ ((T ˘ ○ T) ⊓ Q) ˘ ⊑ (fmapR F ((⦅ S ⦆ ○ ⦅ T ⦆ ˘) ˘) ○ (S ˘) ○ R) ˘
+         ⇐⟨ ⊒-trans (˘-○-distr3-⊒ (fmapR F ((⦅ S ⦆ ○ ⦅ T ⦆ ˘) ˘)) (S ˘) R) ⟩
+           S ○ fmapR F (⦅ S ⦆ ○ ⦅ T ⦆ ˘) ○ ((T ˘ ○ T) ⊓ Q) ˘ ⊑ R ˘ ○ S ○ (fmapR F ((⦅ S ⦆ ○ ⦅ T ⦆ ˘) ˘) ˘)
          ⇐⟨ ⊒-trans (○-monotonic-r (○-monotonic-r (fmapR-˘-preservation-⊒ F))) ⟩
-           S ○ fmapR F (⦇ S ⦈ ○ ⦇ T ⦈ ˘) ○ ((T ˘ ○ T) ⊓ Q) ˘ ⊑ R ˘ ○ S ○ fmapR F (⦇ S ⦈ ○ ⦇ T ⦈ ˘)
+           S ○ fmapR F (⦅ S ⦆ ○ ⦅ T ⦆ ˘) ○ ((T ˘ ○ T) ⊓ Q) ˘ ⊑ R ˘ ○ S ○ fmapR F (⦅ S ⦆ ○ ⦅ T ⦆ ˘)
          ⇐⟨ ⊑-trans (○-monotonic-r (○-monotonic-r ⊓-commute)) ⟩
-           S ○ fmapR F (⦇ S ⦈ ○ ⦇ T ⦈ ˘) ○ (Q ⊓ (T ˘ ○ T)) ˘ ⊑ R ˘ ○ S ○ fmapR F (⦇ S ⦈ ○ ⦇ T ⦈ ˘)
+           S ○ fmapR F (⦅ S ⦆ ○ ⦅ T ⦆ ˘) ○ (Q ⊓ (T ˘ ○ T)) ˘ ⊑ R ˘ ○ S ○ fmapR F (⦅ S ⦆ ○ ⦅ T ⦆ ˘)
          ⇐∎) greedy
